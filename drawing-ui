@@ -1275,9 +1275,13 @@ function library:LoadConfig(name, universal)
             for flag, v in next, config do
                 local func = flags[flag]
                 if func then
-                    for i=1, 50 do
-                        func(v)
-                    end
+                    func(v)
+                end
+            end
+             for flag, v in next, config do
+                local func = flags[flag]
+                if func then
+                    func(v)
                 end
             end
         end
