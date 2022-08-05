@@ -1259,23 +1259,23 @@ function library:DeleteConfig(name, universal)
 end
 
 function library:LoadConfig(name, universal)
-    while wait(1) do
-        if type(name) == "string" and name:find("%w") then
-            assert(self.folder, "No folder specified")
-            assert(self.extension, "No file extension specified")
-    
-            local placeid = universal and "universal" or game.PlaceId
-    
-            local folderpath = string.format("%s//%s", self.folder, placeid)
-            local filepath = string.format("%s//%s.%s", folderpath, name, self.extension)
-    
-            if isfolder(folderpath) and isfile(filepath) then  
-                local file = readfile(filepath)
-                local config = services.HttpService:JSONDecode(file)
-    
-                for flag, v in next, config do
-                    local func = flags[flag]
-                    if func then
+    if type(name) == "string" and name:find("%w") then
+        assert(self.folder, "No folder specified")
+        assert(self.extension, "No file extension specified")
+
+        local placeid = universal and "universal" or game.PlaceId
+
+        local folderpath = string.format("%s//%s", self.folder, placeid)
+        local filepath = string.format("%s//%s.%s", folderpath, name, self.extension)
+
+        if isfolder(folderpath) and isfile(filepath) then  
+            local file = readfile(filepath)
+            local config = services.HttpService:JSONDecode(file)
+
+            for flag, v in next, config do
+                local func = flags[flag]
+                if func then
+                    for i=1, 50 do
                         func(v)
                     end
                 end
