@@ -1259,7 +1259,7 @@ function library:DeleteConfig(name, universal)
 end
 
 function library:LoadConfig(name, universal)
-    for i=1, 25 do 
+    while wait(1) do
         if type(name) == "string" and name:find("%w") then
             assert(self.folder, "No folder specified")
             assert(self.extension, "No file extension specified")
